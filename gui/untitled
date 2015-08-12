@@ -1,0 +1,50 @@
+for (int c = 0; c < SIZE; c += 1) {
+            for (int r = 0; r < SIZE; r += 1) {
+                if (board[r][c] != 0) {
+                    for (int i = r-1; i >= 0; i -= 1) {
+                        if (board[i][c] == 0) {
+                            _game.moveTile(board[r][c],
+                                tiltRow(side, r, c),
+                                tiltCol(side, r, c),
+                                tiltRow(side, i, c),
+                                tiltCol(side, i, c));
+                            board[i][r] = board[r][c] ;
+                            board[r][c] = 0;
+                        } else {
+                            if (board[i][c] == board[r][c]) {
+                                int oldvalue = board[r][c];
+                                int newvalue = oldvalue * 2;
+                                _game.moveTile(oldvalue, newvalue,
+                                    tiltRow(side, r, c),
+                                    tiltCol(side, r, c),
+                                    tiltRow(side, i, c),
+                                    tiltCol(side, i, c));
+                                board[i][c] = newvalue;
+                                board[r][c] = 0;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+                if (board[r][c] == 0) {
+                    int count = r + 1;
+                    while (count < SIZE) {
+                        if (board[count][c] != 0) {
+                            _game.moveTile(board[count][c],
+                                tiltRow(side, count, c),
+                                tiltCol(side, count, c),
+                                tiltRow(side, r, c), tiltCol(side, r, c));
+                            board[r][c] = board[count][c];
+                            board[count][c] = 0;
+                            returnvalue = true;
+                            count = SIZE;
+                        }
+                        count += 1;
+                    }
+                }
